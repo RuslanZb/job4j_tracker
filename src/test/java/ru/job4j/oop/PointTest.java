@@ -12,4 +12,13 @@ public class PointTest {
         double expected = 5;
         Assert.assertEquals(dist, expected, 2);
     }
+
+    @Test
+    public void whenMinus123115Then3() {
+        Point a = new Point(-1, 2, 3);
+        Point b = new Point(1, 1, 5);
+        double dist = a.distance(b);
+        double expected = 3;
+        Assert.assertEquals(dist, expected, 2);
+    }
 }
