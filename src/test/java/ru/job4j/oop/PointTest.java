@@ -5,12 +5,11 @@ import org.junit.Assert;
 
 public class PointTest {
     @Test
-    public void whenThen10() {
-        int x1 = 1;
-        int x2 = 10;
-        Max max = new Max();
-        int result = max.max(x1, x2);
-        int expected = 10;
-        Assert.assertEquals(result, expected);
+    public void when10101314Then5() {
+        Point a = new Point(10, 10);
+        Point b = new Point(13, 14);
+        double dist = a.distance(b);
+        double expected = 5;
+        Assert.assertEquals(dist, expected, 2);
     }
 }
