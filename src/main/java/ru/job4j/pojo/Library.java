@@ -5,7 +5,7 @@ public class Library {
         Book cleanCode = new Book("Clean code", 564);
         Book harryPotter = new Book("Harry Potter", 433);
         Book capital = new Book("Capital", 786);
-        Book ball = new Book("Ball", 23);
+        Book ball = new Book("Ball", 22);
         Book[] books = new Book[]{cleanCode, harryPotter, capital, ball};
         for (Book num : books) {
             System.out.println(num.getName() + " - " + num.getPages() + "p.");
