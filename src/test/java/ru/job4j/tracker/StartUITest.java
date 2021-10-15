@@ -104,11 +104,12 @@ public class StartUITest {
     public void whenShowAllAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
+        Item first = tracker.add(new Item("test1"));
+        Item second = tracker.add(new Item("test2"));
         Input in = new StubInput(new String[]{
-                "0", "test1", "0", "test2", "1", "2"
+                "0", "1"
         });
         UserAction[] actions = new UserAction[]{
-                new CreateAction(out),
                 new ShowAllAction(out),
                 new ExitAction()
         };
@@ -116,28 +117,14 @@ public class StartUITest {
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
                 "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Show all items" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(1) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Show all items" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(2) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Show all items" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Show all items" + ln
+                        + "1. Exit Program" + ln
                         + "=== Show all items ====" + ln
-                        + tracker.findById(1) + ln
-                        + tracker.findById(2) + ln
+                        + first + ln
+                        + second + ln
                         + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Show all items" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Show all items" + ln
+                        + "1. Exit Program" + ln
         ));
     }
 
@@ -145,11 +132,12 @@ public class StartUITest {
     public void whenFindByIdAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
+        Item first = tracker.add(new Item("test1"));
+        Item second = tracker.add(new Item("test2"));
         Input in = new StubInput(new String[]{
-                "0", "test1", "0", "test2", "1", "1", "1", "3", "2"
+                "0",  String.valueOf(second.getId()), "0", "3", "1"
         });
         UserAction[] actions = new UserAction[]{
-                new CreateAction(out),
                 new FindByIdAction(out),
                 new ExitAction()
         };
@@ -157,33 +145,18 @@ public class StartUITest {
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
                 "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find item by id" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(1) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find item by id" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(2) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find item by id" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find item by id" + ln
+                        + "1. Exit Program" + ln
                         + "=== Find item by id ====" + ln
-                        + tracker.findById(1) + ln
+                        + second + ln
                         + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find item by id" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find item by id" + ln
+                        + "1. Exit Program" + ln
                         + "=== Find item by id ====" + ln
                         + "Заявка с введенным id: " + "3" + " не найдена." + ln
                         + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find item by id" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find item by id" + ln
+                        + "1. Exit Program" + ln
         ));
     }
 
@@ -191,11 +164,12 @@ public class StartUITest {
     public void whenFindByNameAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
+        Item first = tracker.add(new Item("test1"));
+        Item second = tracker.add(new Item("test2"));
         Input in = new StubInput(new String[]{
-                "0", "test1", "0", "test2", "1", "test1", "1", "test3", "2"
+                "0", "test1", "0", "test3", "1"
         });
         UserAction[] actions = new UserAction[]{
-                new CreateAction(out),
                 new FindByNameAction(out),
                 new ExitAction()
         };
@@ -203,33 +177,18 @@ public class StartUITest {
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
                 "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find items by name" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(1) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find items by name" + ln
-                        + "2. Exit Program" + ln
-                        + "=== Create a new Item ====" + ln
-                        + "Добавленная заявка: " + tracker.findById(2) + ln
-                        + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find items by name" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find items by name" + ln
+                        + "1. Exit Program" + ln
                         + "=== Find items by name ====" + ln
-                        + tracker.findById(1) + ln
+                        + first + ln
                         + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find items by name" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find items by name" + ln
+                        + "1. Exit Program" + ln
                         + "=== Find items by name ====" + ln
                         + "Заявки с именем: " + "test3" + " не найдены." + ln
                         + "Menu:" + ln
-                        + "0. Add new Item" + ln
-                        + "1. Find items by name" + ln
-                        + "2. Exit Program" + ln
+                        + "0. Find items by name" + ln
+                        + "1. Exit Program" + ln
         ));
     }
 }
