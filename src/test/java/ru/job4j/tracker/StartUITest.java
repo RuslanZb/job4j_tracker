@@ -104,8 +104,7 @@ public class StartUITest {
     public void whenShowAllAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("test1"));
-        Item second = tracker.add(new Item("test2"));
+        Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(new String[]{
                 "0", "1"
         });
@@ -120,8 +119,7 @@ public class StartUITest {
                         + "0. Show all items" + ln
                         + "1. Exit Program" + ln
                         + "=== Show all items ====" + ln
-                        + first + ln
-                        + second + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Show all items" + ln
                         + "1. Exit Program" + ln
@@ -132,10 +130,9 @@ public class StartUITest {
     public void whenFindByIdAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("test1"));
-        Item second = tracker.add(new Item("test2"));
+        Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(new String[]{
-                "0",  String.valueOf(second.getId()), "0", "3", "1"
+                "0",  String.valueOf(one.getId()), "0", "3", "1"
         });
         UserAction[] actions = new UserAction[]{
                 new FindByIdAction(out),
@@ -148,7 +145,7 @@ public class StartUITest {
                         + "0. Find item by id" + ln
                         + "1. Exit Program" + ln
                         + "=== Find item by id ====" + ln
-                        + second + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find item by id" + ln
                         + "1. Exit Program" + ln
@@ -164,8 +161,7 @@ public class StartUITest {
     public void whenFindByNameAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("test1"));
-        Item second = tracker.add(new Item("test2"));
+        Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(new String[]{
                 "0", "test1", "0", "test3", "1"
         });
@@ -180,7 +176,7 @@ public class StartUITest {
                         + "0. Find items by name" + ln
                         + "1. Exit Program" + ln
                         + "=== Find items by name ====" + ln
-                        + first + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find items by name" + ln
                         + "1. Exit Program" + ln
