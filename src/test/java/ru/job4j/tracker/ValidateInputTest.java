@@ -20,17 +20,30 @@ public class ValidateInputTest {
     }
 
     @Test
-    public void whenInvalidMultipleInput() {
+    public void whenValidInput() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[]{"one", "1", "5", "2"}
+                new String[]{"1"}
+        );
+        ValidateInput input = new ValidateInput(out, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected, is(1));
+    }
+
+    @Test
+    public void whenMultipleValidInput() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[]{"1", "5", "2"}
         );
         ValidateInput input = new ValidateInput(out, in);
         int[] selected = new int[3];
-        for (int i = 0; i < selected.length; i++) {
-            selected[i] = input.askInt("Enter menu:");
-        }
-        assertArrayEquals(selected, new int[] {1, 5, 2});
+        selected[0] = input.askInt("Enter menu:");
+        assertThat(selected[0], is(1));
+        selected[1] = input.askInt("Enter menu:");
+        assertThat(selected[1], is(5));
+        selected[2] = input.askInt("Enter menu:");
+        assertThat(selected[2], is(2));
     }
 
     @Test
