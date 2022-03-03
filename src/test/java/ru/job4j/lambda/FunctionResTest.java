@@ -29,8 +29,8 @@ public class FunctionResTest {
     @Test
     public void whenExponentialFunctionThenExponentialResults() {
         FunctionRes function = new FunctionRes();
-        List<Double> result = function.diapason(-3, 3, x -> Math.pow(1, x));
-        List<Double> expected = Arrays.asList(1D, 1D, 1D, 1D, 1D, 1D, 1D);
+        List<Double> result = function.diapason(-3, 3, x -> Math.pow(2, x));
+        List<Double> expected = Arrays.asList(0.125D, 0.25D, 0.5D, 1D, 2D, 4D, 8D);
         assertThat(result, is(expected));
     }
 }
