@@ -13,7 +13,7 @@ import java.util.Map;
  * 4. Переводить деньги с одного банковского счёта на другой счёт.
  *
  * @author RUSLAN ZUBAIROV
- * @version 1.0
+ * @version 2.0
  */
 
 public class BankService {
@@ -56,14 +56,10 @@ public class BankService {
      * @return возвращает пользователя, если он есть в списке, иначе возвращает null.
      */
     public User findByPassport(String passport) {
-        User rsl = null;
-        for (User user : users.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                rsl = user;
-                break;
-            }
-        }
-        return rsl;
+        return users.keySet().stream()
+                .filter(s -> s.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -73,17 +69,14 @@ public class BankService {
      * @return возвращает счёт пользователя, если он есть в списке, иначе возвращает null.
      */
     public Account findByRequisite(String passport, String requisite) {
-        Account rsl = null;
         User user = findByPassport(passport);
         if (user != null) {
-            for (Account account : users.get(user)) {
-                if ((account.getRequisite()).equals(requisite)) {
-                    rsl = account;
-                    break;
-                }
-            }
+            return users.get(user).stream()
+                    .filter(s -> s.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
-        return rsl;
+        return null;
     }
 
     /**
