@@ -1,9 +1,6 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Класс является простейшим банковским сервисом, который позволяет:
@@ -13,7 +10,7 @@ import java.util.Map;
  * 4. Переводить деньги с одного банковского счёта на другой счёт.
  *
  * @author RUSLAN ZUBAIROV
- * @version 2.0
+ * @version 3.0
  */
 
 public class BankService {
@@ -42,10 +39,10 @@ public class BankService {
      * @param account  добавляемый счёт.
      */
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            if (!users.get(user).contains(account)) {
-                users.get(user).add(account);
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            if (!users.get(user.get()).contains(account)) {
+                users.get(user.get()).add(account);
             }
         }
     }
@@ -53,30 +50,25 @@ public class BankService {
     /**
      * Метод ищет пользователя по номеру паспорта.
      * @param passport номер паспорта.
-     * @return возвращает пользователя, если он есть в списке, иначе возвращает null.
+     * @return возвращает пользователя, если он есть в списке, иначе возвращает пустой Optional-объект.
      */
-    public User findByPassport(String passport) {
+    public Optional<User> findByPassport(String passport) {
         return users.keySet().stream()
                 .filter(s -> s.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     /**
      * Метод позволяет найти счёт пользователя по номеру паспорта и реквизитам.
      * @param passport номер паспорта пользователя.
      * @param requisite реквизиты пользователя.
-     * @return возвращает счёт пользователя, если он есть в списке, иначе возвращает null.
+     * @return возвращает счёт пользователя, если он есть в списке, иначе возвращает пустой Optional-объект.
      */
-    public Account findByRequisite(String passport, String requisite) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            return users.get(user).stream()
-                    .filter(s -> s.getRequisite().equals(requisite))
-                    .findFirst()
-                    .orElse(null);
-        }
-        return null;
+    public Optional<Account> findByRequisite(String passport, String requisite) {
+        Optional<User> user = findByPassport(passport);
+        return user.flatMap(u -> users.get(u).stream()
+                .filter(s -> s.getRequisite().equals(requisite))
+                .findFirst());
     }
 
     /**
@@ -91,11 +83,11 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        Account src = findByRequisite(srcPassport, srcRequisite);
-        Account dest = findByRequisite(destPassport, destRequisite);
-        if (src != null && dest != null && src.getBalance() >= 0) {
-            dest.setBalance(dest.getBalance() + amount);
-            src.setBalance(src.getBalance() - amount);
+        Optional<Account> src = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> dest = findByRequisite(destPassport, destRequisite);
+        if (src.isPresent() && dest.isPresent() && src.get().getBalance() >= 0) {
+            dest.get().setBalance(dest.get().getBalance() + amount);
+            src.get().setBalance(src.get().getBalance() - amount);
             rsl = true;
         }
         return rsl;
