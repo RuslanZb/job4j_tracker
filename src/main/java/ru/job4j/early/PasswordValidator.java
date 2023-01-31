@@ -1,5 +1,7 @@
 package ru.job4j.early;
 
+import java.util.Scanner;
+
 public class PasswordValidator {
 
     public static String validate(String password) {
@@ -51,5 +53,11 @@ public class PasswordValidator {
             throw new IllegalArgumentException("Password should contain at least one special symbol");
         }
         return password;
+    }
+
+    public static void main(String[] args) {
+        Scanner message = new Scanner(System.in);
+        validate(message.nextLine());
+        System.out.println("Верно");
     }
 }
